@@ -29,6 +29,8 @@ import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 import com.rrdl.chatroom.model.Dialog;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.UUID;
 
 public class Rooms extends BaseActivity {
 
@@ -88,6 +90,14 @@ public class Rooms extends BaseActivity {
                         for(DataSnapshot data : item.getChildren()) {
                             dialog.setLastMessage(data.getValue(Message.class));
                          }
+                    }else{
+                        Message message = new Message();
+                        String uniqueID = UUID.randomUUID().toString();
+                        message.setId(uniqueID);
+                        message.setUser(user);
+                        message.setCreatedAt(new Date());
+                        message.setText("");
+                        dialog.setLastMessage(message);
                     }
                     dialogsListAdapter.addItem(dialog);
                 }
